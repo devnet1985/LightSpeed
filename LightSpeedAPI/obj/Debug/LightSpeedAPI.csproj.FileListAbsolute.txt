@@ -1,0 +1,359 @@
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll.config
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.pdb
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe.config
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.rsp
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe.config
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.rsp
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.AppContext.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Console.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Compression.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Claims.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.ValueTuple.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe.config
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.rsp
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\WebGrease.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.pdb
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csprojAssemblyReference.cache
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CoreCompileInputs.cache
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CopyComplete
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.pdb
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.dll
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.xml
+C:\Users\solar\source\repos\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll.config
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.pdb
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe.config
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.rsp
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe.config
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.rsp
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.AppContext.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Console.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Compression.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Claims.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.ValueTuple.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe.config
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.rsp
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\WebGrease.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.pdb
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csprojAssemblyReference.cache
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CoreCompileInputs.cache
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CopyComplete
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.dll
+C:\Users\dnthinkscentre\Desktop\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.pdb
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll.config
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.pdb
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe.config
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.rsp
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe.config
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.rsp
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.AppContext.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Console.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Compression.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Claims.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.ValueTuple.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe.config
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.rsp
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\WebGrease.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.pdb
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CopyComplete
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.dll
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.pdb
+C:\Users\User\Desktop\AMAN\sppedlight\LightSpeedAPI\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csprojAssemblyReference.cache
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll.config
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\LightSpeedAPI.pdb
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.exe.config
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csc.rsp
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.exe.config
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\csi.rsp
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.Managed.Core.targets
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.AppContext.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Collections.Immutable.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Console.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Compression.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.IO.Pipes.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Reflection.Metadata.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.AccessControl.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Claims.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Security.Principal.Windows.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.ValueTuple.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XmlDocument.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.exe.config
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\vbc.rsp
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\roslyn\VBCSCompiler.exe.config
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.Web.Infrastructure.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\WebGrease.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Google.Protobuf.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\MySql.Data.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Newtonsoft.Json.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Net.Http.Formatting.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Helpers.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Http.WebHost.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Mvc.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Optimization.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.Razor.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Deployment.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Web.WebPages.Razor.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Antlr3.Runtime.pdb
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\System.Diagnostics.DiagnosticSource.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.AspNet.TelemetryCorrelation.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CoreCompileInputs.cache
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.csproj.CopyComplete
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.dll
+D:\ClientProject\2019\David Snyder -Amit Verma\LightSpeedAPI- 25 June 2019\LightSpeedAPI\LightSpeedAPI\obj\Debug\LightSpeedAPI.pdb
