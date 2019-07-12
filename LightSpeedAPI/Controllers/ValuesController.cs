@@ -21,6 +21,8 @@ namespace LightSpeedAPI.Controllers
 {
     public class ValuesController : ApiController
     {
+
+        public static string Token1 = "";
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -47,46 +49,82 @@ namespace LightSpeedAPI.Controllers
         public void Delete(int id)
         {
         }
-
-
+        private static void AccesToken1()
+        {
+        GotoAccesToken1:
+            try
+            {
+                string URL = "https://cloud.lightspeedapp.com/oauth/access_token.php";
+                System.Net.WebRequest webRequest = System.Net.WebRequest.Create(URL);
+                webRequest.Method = "POST";
+                webRequest.ContentType = "application/x-www-form-urlencoded";
+                Stream reqStream = webRequest.GetRequestStream();
+                string postData = "refresh_token=fa257998516c36027d0fb93b9453c8dd722cfb3f&client_id=23eea8ec9d7195a76c989794df18643b114ab8d3b1942b6ba3cc94a3ea4a8218&client_secret=a02cd99c7525093c40a6364c7a4d6ecfe131f1fb9df3c7cb4a8a597845d8c463&grant_type=refresh_token";
+                byte[] postArray = Encoding.ASCII.GetBytes(postData);
+                reqStream.Write(postArray, 0, postArray.Length);
+                reqStream.Close();
+                StreamReader sr = new StreamReader(webRequest.GetResponse().GetResponseStream());
+                var Result = sr.ReadToEnd();
+                dynamic response = JsonConvert.DeserializeObject(Result);
+                Token1 = response["access_token"];
+            }
+            catch (Exception ex)
+            {
+                goto GotoAccesToken1;
+            }
+        }
         [HttpGet]
         [Route("api/LightSpeed/InvoiceItemsInsert")]
         public IEnumerable<string> InvoiceItems()
         {
-            var Result = AccesToken();
-            RefreshToken refobj = new RefreshToken();
-            refobj = new JavaScriptSerializer().Deserialize<RefreshToken>(Result);
-            var accountinfo = AccountInformation(refobj.access_token);
-            Accountinfo accobj = new Accountinfo();
-            accobj = new JavaScriptSerializer().Deserialize<Accountinfo>(accountinfo);
-            //Sales Info insertion
-            var salesinfo = SalesInformation(refobj.access_token, accobj.Account.accountID);
-            dynamic respose = JsonConvert.DeserializeObject(salesinfo);
-            int count = Convert.ToInt32(respose["@attributes"]["count"]);
-
-            if (count > 1)
+            string message = "";
+            message = InvoiceItemstatic();
+            if (message == "")
             {
-                Salesinfo slsobj = new Salesinfo();
-                slsobj = new JavaScriptSerializer().Deserialize<Salesinfo>(salesinfo);
-                if (slsobj.Sale != null)
+                message = "Record is empty";
+            }
+            return new string[] { message };
+        }
+
+        public static string InvoiceItemstatic()
+        {
+            string Message = "";
+            try
+            {
+                var Result = AccesToken();
+                RefreshToken refobj = new RefreshToken();
+                refobj = new JavaScriptSerializer().Deserialize<RefreshToken>(Result);
+                var accountinfo = AccountInformation(refobj.access_token);
+                Accountinfo accobj = new Accountinfo();
+                accobj = new JavaScriptSerializer().Deserialize<Accountinfo>(accountinfo);
+                //Sales Info insertion
+                var salesinfo = SalesInformation(refobj.access_token, accobj.Account.accountID);
+                dynamic respose = JsonConvert.DeserializeObject(salesinfo);
+                int count = Convert.ToInt32(respose["@attributes"]["count"]);
+                if (count > 1)
                 {
-                    InsertInvoiceItems(slsobj);
+                    Salesinfo slsobj = new Salesinfo();
+                    slsobj = new JavaScriptSerializer().Deserialize<Salesinfo>(salesinfo);
+                    if (slsobj.Sale != null)
+                    {
+                        Message = InsertInvoiceItems(slsobj);
+                    }
+                }
+                else
+                {
+                    salessingle slsobj = new salessingle();
+                    slsobj = new JavaScriptSerializer().Deserialize<salessingle>(salesinfo);
+                    if (slsobj.Sale != null)
+                    {
+                        Message = InsertInvoiceItemssingle(slsobj);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                salessingle slsobj = new salessingle();
-                slsobj = new JavaScriptSerializer().Deserialize<salessingle>(salesinfo);
-                if (slsobj.Sale != null)
-                {
-                    InsertInvoiceItemssingle(slsobj);
-                }
+                Message = ex.Message;
             }
-            return new string[] { "Inseted Succesfully" };
-
-            //var db = new CustomerEntities();
-            //var customers = db.Customers.ToList();
-            //return Ok(customers);
+            return Message;
         }
 
 
@@ -94,41 +132,59 @@ namespace LightSpeedAPI.Controllers
         [Route("api/LightSpeed/ShopItemsInsert")]
         public IEnumerable<string> ShopItems()
         {
-
-            var Result = AccesToken();
-            RefreshToken refobj = new RefreshToken();
-            refobj = new JavaScriptSerializer().Deserialize<RefreshToken>(Result);
-            var accountinfo = AccountInformation(refobj.access_token);
-            Accountinfo accobj = new Accountinfo();
-            accobj = new JavaScriptSerializer().Deserialize<Accountinfo>(accountinfo);
-            //Sales Info insertion
-            var shopinfo = ShopInformation(refobj.access_token, accobj.Account.accountID);
-            Shopinfo shpobj = new Shopinfo();
-            shpobj = new JavaScriptSerializer().Deserialize<Shopinfo>(shopinfo);
-            InsertShopItems(shpobj);
-            return new string[] { "Inseted Succesfully" };
-
-            //var db = new CustomerEntities();
-            //var customers = db.Customers.ToList();
-            //return Ok(customers);
+            string message = "";
+            try
+            {
+                message = ShopLine();
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            if (message == "")
+            {
+                message = "record is empty";
+            }
+            return new string[] { message };
         }
 
-        [HttpGet]
-        [Route("api/LightSpeed/SalesLineItemsInsert")]
-        public IEnumerable<string> SalesLineItems()
+        public static string ShopLine()
+        {
+
+            string Message = "";
+            try
+            {
+                var Result = AccesToken();
+                RefreshToken refobj = new RefreshToken();
+                refobj = new JavaScriptSerializer().Deserialize<RefreshToken>(Result);
+                var accountinfo = AccountInformation(refobj.access_token);
+                Accountinfo accobj = new Accountinfo();
+                accobj = new JavaScriptSerializer().Deserialize<Accountinfo>(accountinfo);
+                //Sales Info insertion
+                var shopinfo = ShopInformation(refobj.access_token, accobj.Account.accountID);
+                Shopinfo shpobj = new Shopinfo();
+                shpobj = new JavaScriptSerializer().Deserialize<Shopinfo>(shopinfo);
+                Message = InsertShopItems(shpobj);
+            }
+            catch (Exception ex)
+            {
+                Message = ex.Message;
+            }
+            return Message;
+        }
+
+        public static string Saleline()
         {
             var Result = AccesToken();
+            string Message = "";
             RefreshToken refobj = new RefreshToken();
             refobj = new JavaScriptSerializer().Deserialize<RefreshToken>(Result);
             var accountinfo = AccountInformation(refobj.access_token);
             Accountinfo accobj = new Accountinfo();
             accobj = new JavaScriptSerializer().Deserialize<Accountinfo>(accountinfo);
             var shoplineinfo = SaleLineInformation(refobj.access_token, accobj.Account.accountID);
-
             dynamic response = JsonConvert.DeserializeObject(shoplineinfo);
-
             int scount = Convert.ToInt32(response["@attributes"]["count"]);
-
             if (scount > 1)
             {
                 SaleLineinfo shplineobj = new SaleLineinfo();
@@ -143,7 +199,7 @@ namespace LightSpeedAPI.Controllers
                 }
                 if (shplineobj.SaleLine != null)
                 {
-                    InsertSalesLineItems(shplineobj);
+                    Message = InsertSalesLineItems(shplineobj);
                 }
             }
             else
@@ -157,24 +213,46 @@ namespace LightSpeedAPI.Controllers
                 }
                 if (sallin.SaleLine != null)
                 {
-                    InsertSalesLineSingleItems(sallin);
+                    if (scount == 0)
+                    {
+                        Message = " Record  Is Empty";
+                    }
+                    else
+                    {
+                        Message = InsertSalesLineSingleItems(sallin);
+
+                    }
                 }
             }
-            return new string[] { "Inseted Succesfully" };
+            return Message;
+        }
+
+        [HttpGet]
+        [Route("api/LightSpeed/SalesLineItemsInsert")]
+        public IEnumerable<string> SalesLineItems()
+        {
+            //ExecAfterItem:
+            string Message = "";
+            Message = Saleline();
+            if (Message == "")
+            {
+                Message = "Record is empty";
+            }
+            return new string[] { Message };
             //var db = new CustomerEntities();
             //var customers = db.Customers.ToList();
             //return Ok(customers);
         }
 
-        [HttpGet]
-        [Route("api/Customer/InventoryItemsInsert")]
-        public IEnumerable<string> InventoryItems()
+
+        public static string Getinventerory()
         {
+        gotoGetinventerory:
+            string Message = "";
             DateTime dt = DateTime.Now;
             DateTime dt1 = dt.AddMinutes(-30);
             string CurrentDate = dt.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
             string pastDate = dt1.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
-            // DateTime d3 = DateTime.Parse(dt1.ToString(), null, System.Globalization.DateTimeStyles.RoundtripKind);
             int index1 = CurrentDate.IndexOf("+");
             int index2 = CurrentDate.Length - 1;
             int indeslastchr = CurrentDate.Length - 1;
@@ -190,34 +268,64 @@ namespace LightSpeedAPI.Controllers
             //    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json");
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + refobj.access_token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            dynamic jsonResponseText = "";
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    Iteminfo itemobj = new Iteminfo();
-                    dynamic deserialized = JsonConvert.DeserializeObject(jsonResponseText);
-                    int scount = Convert.ToInt32(deserialized["@attributes"]["count"]);
-                    if (scount > 1)
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
                     {
-                        var iteminfo = ItemInformation(refobj.access_token, accobj.Account.accountID);
-                        if (iteminfo.Item != null)
+                        jsonResponseText = streamReader.ReadToEnd();
+                        Iteminfo itemobj = new Iteminfo();
+                        dynamic deserialized = JsonConvert.DeserializeObject(jsonResponseText);
+                        int scount = Convert.ToInt32(deserialized["@attributes"]["count"]);
+                        if (scount > 1)
                         {
-                            InsertInventoryItems(iteminfo);
+                            var iteminfo = ItemInformation(refobj.access_token, accobj.Account.accountID);
+                            if (iteminfo.Item != null)
+                            {
+                                Message = InsertInventoryItems(iteminfo);
+                            }
                         }
-                    }
-                    else
-                    {
-                        var iteminfosingle = ItemInformationsingle(refobj.access_token, accobj.Account.accountID);
-                        if (iteminfosingle.Item != null)
+                        else
                         {
-                            InsertInventorySingleItems(iteminfosingle);
+                            var iteminfosingle = ItemInformationsingle(refobj.access_token, accobj.Account.accountID);
+                            if (iteminfosingle.Item != null)
+                            {
+                                Message = InsertInventorySingleItems(iteminfosingle);
+                            }
                         }
                     }
                 }
             }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseText) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+
+                    AccesToken1();
+                    goto gotoGetinventerory;
+                }
+                else
+                {
+                    Message = ex.Message;
+                }
+            }
+            return Message;
+        }
+
+        [HttpGet]
+        [Route("api/Customer/InventoryItemsInsert")]
+        public IEnumerable<string> InventoryItems()
+        {
+            string Message = "";
+            Message = Getinventerory();
             //var shoplineinfo = SaleLineInformation(refobj.access_token, accobj.Account.accountID);
-            return new string[] { "Inseted Succesfully" };
+            if (Message == "")
+            {
+                Message = "Record is empty";
+            }
+            return new string[] { Message };
             //var db = new CustomerEntities();
             //var customers = db.Customers.ToList();
             //return Ok(customers);
@@ -237,26 +345,19 @@ namespace LightSpeedAPI.Controllers
             Salesinfo slsobj = new Salesinfo();
             slsobj = new JavaScriptSerializer().Deserialize<Salesinfo>(salesinfo);
             InsertInvoiceItems(slsobj);
-
-
             Task.Delay(50000);
             //Shop Insertion
             var shopinfo = ShopInformation(refobj.access_token, accobj.Account.accountID);
             Shopinfo shpobj = new Shopinfo();
             shpobj = new JavaScriptSerializer().Deserialize<Shopinfo>(shopinfo);
             InsertShopItems(shpobj);
-
-
             Task.Delay(50000);
-
             //Sales Lineinfo insertion
             var shoplineinfo = SaleLineInformation(refobj.access_token, accobj.Account.accountID);
             SaleLineinfo shplineobj = new SaleLineinfo();
             shplineobj = new JavaScriptSerializer().Deserialize<SaleLineinfo>(shoplineinfo);
             InsertSalesLineItems(shplineobj);
-
             Task.Delay(50000);
-
             var iteminfo = ItemInformation(refobj.access_token, accobj.Account.accountID);
             InsertInventoryItems(iteminfo);
         }
@@ -310,7 +411,6 @@ namespace LightSpeedAPI.Controllers
                 //   return null;
                 // MessageBox.Show("Can not open connection ! ");
             }
-
             return ds;
         }
 
@@ -337,7 +437,6 @@ namespace LightSpeedAPI.Controllers
                 //   return null;
                 // MessageBox.Show("Can not open connection ! ");
             }
-
             return ds;
         }
 
@@ -371,18 +470,35 @@ namespace LightSpeedAPI.Controllers
 
         private static string AccountInformation(string Token)
         {
+        AccountInfro:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
             var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account.json");
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            dynamic jsonResponseText = "";
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    return jsonResponseText;
-
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    {
+                        jsonResponseText = streamReader.ReadToEnd();
+                    }
                 }
             }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseText) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+                    AccesToken1();
+                    goto AccountInfro;
+                }
+
+            }
+            return jsonResponseText;
         }
 
         private static string AccesToken()
@@ -403,6 +519,12 @@ namespace LightSpeedAPI.Controllers
 
         private static string SalesInformation(string Token, string AccountId)
         {
+        gotosalesinformation:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
+
             DateTime dt = DateTime.Now;
             DateTime dt1 = dt.AddMinutes(-30);
             string CurrentDate = dt.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
@@ -415,34 +537,71 @@ namespace LightSpeedAPI.Controllers
             var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Sale.json?completeTime=><," + pastDate + "," + CurrentDate);
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            dynamic jsonResponseTex = "";
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    return jsonResponseText;
-
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    {
+                        jsonResponseTex = streamReader.ReadToEnd();
+                    }
                 }
             }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseTex) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+                    AccesToken1();
+                    goto gotosalesinformation;
+                }
+            }
+            return jsonResponseTex;
         }
 
         private static string ShopInformation(string Token, string AccountId)
         {
+        gotoshopinformation:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
             var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Shop.json");
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            dynamic jsonResponseText = "";
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    return jsonResponseText;
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    {
+                        jsonResponseText = streamReader.ReadToEnd();
+
+                    }
                 }
             }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseText) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+                    AccesToken1();
+                    goto gotoshopinformation;
+                }
+            }
+            return jsonResponseText;
+
         }
 
         private static string SaleLineInformation(string Token, string AccountId)
         {
+            string message = "";
+        gosaleback:
+            dynamic jsonResponseText = "";
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
             DateTime dt = DateTime.Now;
             DateTime dt1 = dt.AddMinutes(-30);
             string CurrentDate = dt.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
@@ -456,23 +615,76 @@ namespace LightSpeedAPI.Controllers
             var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/SaleLine.json?createTime=><," + pastDate + "," + CurrentDate);
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    return jsonResponseText;
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    {
+                        jsonResponseText = streamReader.ReadToEnd();
+                    }
                 }
             }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseText) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+                    AccesToken1();
+                    goto gosaleback;
+                }
+            }
+            return jsonResponseText;
         }
 
-        public SaleObject GetCalctotal(string Token, string AccountId, string saleLineID)
+        public static SaleObject GetCalctotal(string Token, string AccountId, string saleLineID)
         {
+        Gotocalulation:
+            SaleObject itemobj = new SaleObject();
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
 
             if (saleLineID != null && saleLineID != "0")
             {
-
-                var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Sale/" + saleLineID + ".json");
+                try
+                {
+                    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Sale/" + saleLineID + ".json");
+                    request.Method = "GET";
+                    request.Headers.Add("Authorization", "Bearer " + Token);
+                    using (System.Net.WebResponse response = request.GetResponse())
+                    {
+                        using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                        {
+                            dynamic jsonResponseText = streamReader.ReadToEnd();
+                            itemobj = new JavaScriptSerializer().Deserialize<SaleObject>(jsonResponseText);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    AccesToken1();
+                    goto Gotocalulation;
+                }
+            }
+            else
+            {
+                Salereload reload = new Salereload();
+                reload.calcTotal = "";
+                itemobj.Sale = reload;
+            }
+            return itemobj;
+        }
+        private static string ItemInformationRespose(string Token, string AccountId)
+        {
+        gotointeminformationresponse:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
+            try
+            {
+                var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Shop.json");
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "Bearer " + Token);
                 using (System.Net.WebResponse response = request.GetResponse())
@@ -480,173 +692,170 @@ namespace LightSpeedAPI.Controllers
                     using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
                     {
                         dynamic jsonResponseText = streamReader.ReadToEnd();
-                        SaleObject itemobj = new SaleObject();
-                        itemobj = new JavaScriptSerializer().Deserialize<SaleObject>(jsonResponseText);
-                        return itemobj;
+                        return jsonResponseText;
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                SaleObject itemobj = new SaleObject();
-                Salereload reload = new Salereload();
-                reload.calcTotal = "";
-                itemobj.Sale = reload;
-                return itemobj;
+                AccesToken1();
+                goto gotointeminformationresponse;
             }
 
-        }
-        private static string ItemInformationRespose(string Token, string AccountId)
-        {
-            var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Shop.json");
-            request.Method = "GET";
-            request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
-            {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
-                {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    return jsonResponseText;
-                }
-            }
         }
 
         private static itemsingleinfromation ItemInformationsingle(string Token, string AccountId)
         {
+        gotoiteminformationsingle:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
             DateTime dt = DateTime.Now;
             DateTime dt1 = dt.AddMinutes(-30);
             string CurrentDate = dt.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
             string pastDate = dt1.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
-            // DateTime d3 = DateTime.Parse(dt1.ToString(), null, System.Globalization.DateTimeStyles.RoundtripKind);
             int index1 = CurrentDate.IndexOf("+");
             int index2 = CurrentDate.Length - 1;
             int indeslastchr = CurrentDate.Length - 1;
             CurrentDate = CurrentDate.Substring(0, CurrentDate.IndexOf("+"));
             pastDate = pastDate.Substring(0, pastDate.IndexOf("+"));
             var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json?createTime=><," + pastDate + "," + CurrentDate);
-
             //    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json");
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            itemsingleinfromation itemobj = new itemsingleinfromation();
+            dynamic jsonResponseText = "";
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    itemsingleinfromation itemobj = new itemsingleinfromation();
-
-                    dynamic deserialized = JsonConvert.DeserializeObject(jsonResponseText);
-                    int scount = Convert.ToInt32(deserialized["@attributes"]["count"]);
-                    if (scount > 0)
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
                     {
-                        itemobj = JsonConvert.DeserializeObject<itemsingleinfromation>(jsonResponseText);
-                        var C = ((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)deserialized).First).Count;
-                        if (itemobj.Item != null)
+                        jsonResponseText = streamReader.ReadToEnd();
+                        dynamic deserialized = JsonConvert.DeserializeObject(jsonResponseText);
+                        int scount = Convert.ToInt32(deserialized["@attributes"]["count"]);
+                        if (scount > 0)
                         {
-
-                            var getmatrixinfo = ItemmatrixInformation(Token, AccountId, itemobj.Item.itemMatrixID);
-                            if (getmatrixinfo.ItemMatrix != null)
-                            {
-                                itemobj.Item.descriptionItemMatrix = getmatrixinfo.ItemMatrix.description;
-                                itemobj.Item.itemAttributeSetID = getmatrixinfo.ItemMatrix.itemAttributeSetID;
-                                string Attribute1 = string.Empty;
-                                string Attribute2 = string.Empty;
-                                try
-                                {
-                                    Attribute1 = getmatrixinfo.ItemMatrix.attribute1Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
-                                }
-                                catch (Exception)
-                                {
-                                }
-                                try
-                                {
-                                    Attribute2 = getmatrixinfo.ItemMatrix.attribute2Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
-                                }
-                                catch (Exception)
-                                {
-                                }
-                                itemobj.Item.attribute1Values = Attribute1;
-                                itemobj.Item.attribute2Values = Attribute2;
-                            }
-                            var getitemreload = Iteminfromation(Token, AccountId, itemobj.Item.itemID);
-                            var getmanufacturerinfo = Manufacturersetinfromation(Token, AccountId, itemobj.Item.manufacturerID);
-                            if (getitemreload.Item != null)
+                            itemobj = JsonConvert.DeserializeObject<itemsingleinfromation>(jsonResponseText);
+                            var C = ((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)deserialized).First).Count;
+                            if (itemobj.Item != null)
                             {
 
-                                itemobj.Item.shop_0_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderLevel;
-                                itemobj.Item.shop_0_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderPoint;
-                                itemobj.Item.shop_0_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].qoh;
-
-                                itemobj.Item.shop_1_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderLevel;
-                                itemobj.Item.shop_1_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderPoint;
-                                itemobj.Item.shop_1_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].qoh;
-
-                                itemobj.Item.shop_2_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderLevel;
-                                itemobj.Item.shop_2_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderPoint;
-                                itemobj.Item.shop_2_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" + */getitemreload.Item.ItemShops.ItemShop[2].qoh;
-
-                                itemobj.Item.shop_3_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderLevel;
-                                itemobj.Item.shop_3_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderPoint;
-                                itemobj.Item.shop_3_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].qoh;
-
-                                itemobj.Item.shop_4_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderLevel;
-                                itemobj.Item.shop_4_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderPoint;
-                                itemobj.Item.shop_4_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].qoh;
-
-                                itemobj.Item.shop_5_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderLevel;
-                                itemobj.Item.shop_5_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderPoint;
-                                itemobj.Item.shop_5_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].qoh;
-
-                                itemobj.Item.shop_6_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderLevel;
-                                itemobj.Item.shop_6_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderPoint;
-                                itemobj.Item.shop_6_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].qoh;
-
-                                itemobj.Item.shop_7_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].reorderLevel;
-                                itemobj.Item.shop_7_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" + */getitemreload.Item.ItemShops.ItemShop[7].reorderPoint;
-                                itemobj.Item.shop_7_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].qoh;
-
-
-                                itemobj.Item.shop_8_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderLevel;
-                                itemobj.Item.shop_8_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderPoint;
-                                itemobj.Item.shop_8_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].qoh;
-
-
-
-                                itemobj.Item.shop_9_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].reorderLevel;
-                                itemobj.Item.shop_9_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].reorderPoint;
-                                itemobj.Item.shop_9_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].qoh;
-
-                                foreach (var item in getitemreload.Item.ItemShops.ItemShop)
+                                var getmatrixinfo = ItemmatrixInformation(Token, AccountId, itemobj.Item.itemMatrixID);
+                                if (getmatrixinfo.ItemMatrix != null)
                                 {
-                                    itemobj.Item.reorderLevel += "shop_" + item.shopID + "_" + item.reorderLevel + ',';
-                                    itemobj.Item.reorderPoint += "shop_" + item.shopID + "_" + item.reorderPoint + ',';
-                                    itemobj.Item.shopID += "shop_" + item.shopID + "_" + item.shopID + ',';
-                                    itemobj.Item.qoh += "shop_" + item.shopID + "_" + item.qoh + ',';
+                                    itemobj.Item.descriptionItemMatrix = getmatrixinfo.ItemMatrix.description;
+                                    itemobj.Item.itemAttributeSetID = getmatrixinfo.ItemMatrix.itemAttributeSetID;
+                                    string Attribute1 = string.Empty;
+                                    string Attribute2 = string.Empty;
+                                    try
+                                    {
+                                        Attribute1 = getmatrixinfo.ItemMatrix.attribute1Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
+                                    }
+                                    catch (Exception)
+                                    {
+                                    }
+                                    try
+                                    {
+                                        Attribute2 = getmatrixinfo.ItemMatrix.attribute2Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
+                                    }
+                                    catch (Exception)
+                                    {
+                                    }
+                                    itemobj.Item.attribute1Values = Attribute1;
+                                    itemobj.Item.attribute2Values = Attribute2;
+                                }
+                                var getitemreload = Iteminfromation(Token, AccountId, itemobj.Item.itemID);
+                                var getmanufacturerinfo = Manufacturersetinfromation(Token, AccountId, itemobj.Item.manufacturerID);
+                                if (getitemreload.Item != null)
+                                {
+
+                                    itemobj.Item.shop_0_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderLevel;
+                                    itemobj.Item.shop_0_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderPoint;
+                                    itemobj.Item.shop_0_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].qoh;
+
+                                    itemobj.Item.shop_1_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderLevel;
+                                    itemobj.Item.shop_1_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderPoint;
+                                    itemobj.Item.shop_1_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].qoh;
+
+                                    itemobj.Item.shop_2_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderLevel;
+                                    itemobj.Item.shop_2_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderPoint;
+                                    itemobj.Item.shop_2_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" + */getitemreload.Item.ItemShops.ItemShop[2].qoh;
+
+                                    itemobj.Item.shop_3_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderLevel;
+                                    itemobj.Item.shop_3_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderPoint;
+                                    itemobj.Item.shop_3_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].qoh;
+
+                                    itemobj.Item.shop_4_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderLevel;
+                                    itemobj.Item.shop_4_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderPoint;
+                                    itemobj.Item.shop_4_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].qoh;
+
+                                    itemobj.Item.shop_5_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderLevel;
+                                    itemobj.Item.shop_5_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderPoint;
+                                    itemobj.Item.shop_5_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].qoh;
+
+                                    itemobj.Item.shop_6_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderLevel;
+                                    itemobj.Item.shop_6_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderPoint;
+                                    itemobj.Item.shop_6_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].qoh;
+
+                                    itemobj.Item.shop_7_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].reorderLevel;
+                                    itemobj.Item.shop_7_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" + */getitemreload.Item.ItemShops.ItemShop[7].reorderPoint;
+                                    itemobj.Item.shop_7_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].qoh;
+
+
+                                    itemobj.Item.shop_8_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderLevel;
+                                    itemobj.Item.shop_8_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderPoint;
+                                    itemobj.Item.shop_8_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].qoh;
+
+
+
+                                    itemobj.Item.shop_9_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].reorderLevel;
+                                    itemobj.Item.shop_9_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].reorderPoint;
+                                    itemobj.Item.shop_9_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].qoh;
+
+                                    foreach (var item in getitemreload.Item.ItemShops.ItemShop)
+                                    {
+                                        itemobj.Item.reorderLevel += "shop_" + item.shopID + "_" + item.reorderLevel + ',';
+                                        itemobj.Item.reorderPoint += "shop_" + item.shopID + "_" + item.reorderPoint + ',';
+                                        itemobj.Item.shopID += "shop_" + item.shopID + "_" + item.shopID + ',';
+                                        itemobj.Item.qoh += "shop_" + item.shopID + "_" + item.qoh + ',';
+                                    }
+                                }
+                                if (getmanufacturerinfo.Manufacturer != null)
+                                {
+                                    itemobj.Item.BrandName = getmanufacturerinfo.Manufacturer.name;
+                                }
+                                var getitemattributeinfo = ItemAttributeSetInformation(Token, AccountId, itemobj.Item.itemAttributeSetID);
+                                if (getitemattributeinfo.ItemAttributeSet != null)
+                                {
+                                    itemobj.Item.descriptionItemMatrix = getitemattributeinfo.ItemAttributeSet.name;
+                                    itemobj.Item.attributeName1 = getitemattributeinfo.ItemAttributeSet.attributeName1;
+                                    itemobj.Item.attributeName2 = getitemattributeinfo.ItemAttributeSet.attributeName2;
                                 }
                             }
-                            if (getmanufacturerinfo.Manufacturer != null)
-                            {
-                                itemobj.Item.BrandName = getmanufacturerinfo.Manufacturer.name;
-                            }
-                            var getitemattributeinfo = ItemAttributeSetInformation(Token, AccountId, itemobj.Item.itemAttributeSetID);
-                            if (getitemattributeinfo.ItemAttributeSet != null)
-                            {
-                                itemobj.Item.descriptionItemMatrix = getitemattributeinfo.ItemAttributeSet.name;
-                                itemobj.Item.attributeName1 = getitemattributeinfo.ItemAttributeSet.attributeName1;
-                                itemobj.Item.attributeName2 = getitemattributeinfo.ItemAttributeSet.attributeName2;
-                            }
-
                         }
-                        return itemobj;
                     }
-
-                    return itemobj;
                 }
             }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseText) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+                    AccesToken1();
+                    goto gotoiteminformationsingle;
+                }
+            }
+            return itemobj;
         }
 
         private static Iteminfo ItemInformation(string Token, string AccountId)
         {
+        gotoItemInformation:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
             DateTime dt = DateTime.Now;
             DateTime dt1 = dt.AddMinutes(-30);
             string CurrentDate = dt.ToString("yyyy-MM-dd'T'HH:mm:ss.fffK", CultureInfo.InvariantCulture);
@@ -658,250 +867,308 @@ namespace LightSpeedAPI.Controllers
             CurrentDate = CurrentDate.Substring(0, CurrentDate.IndexOf("+"));
             pastDate = pastDate.Substring(0, pastDate.IndexOf("+"));
             var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json?createTime=><," + pastDate + "," + CurrentDate);
-
             //    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json");
             request.Method = "GET";
             request.Headers.Add("Authorization", "Bearer " + Token);
-            using (System.Net.WebResponse response = request.GetResponse())
+            Iteminfo itemobj = new Iteminfo();
+            dynamic jsonResponseText = "";
+            try
             {
-                using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                using (System.Net.WebResponse response = request.GetResponse())
                 {
-                    dynamic jsonResponseText = streamReader.ReadToEnd();
-                    Iteminfo itemobj = new Iteminfo();
-                    dynamic deserialized = JsonConvert.DeserializeObject(jsonResponseText);
-                    itemobj = JsonConvert.DeserializeObject<Iteminfo>(jsonResponseText);
-                    var C = ((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)deserialized).First).Count;
-                    if (itemobj.Item != null)
+                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
                     {
-                        for (int count = 0; count < itemobj.Item.Count; count++)
+                        jsonResponseText = streamReader.ReadToEnd();
+                        dynamic deserialized = JsonConvert.DeserializeObject(jsonResponseText);
+                        itemobj = JsonConvert.DeserializeObject<Iteminfo>(jsonResponseText);
+                        var C = ((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)deserialized).First).Count;
                         {
-                            var getmatrixinfo = ItemmatrixInformation(Token, AccountId, itemobj.Item[count].itemMatrixID);
-                            if (getmatrixinfo.ItemMatrix != null)
+                            for (int count = 0; count < itemobj.Item.Count; count++)
                             {
-                                itemobj.Item[count].descriptionItemMatrix = getmatrixinfo.ItemMatrix.description;
-                                itemobj.Item[count].itemAttributeSetID = getmatrixinfo.ItemMatrix.itemAttributeSetID;
-                                string Attribute1 = string.Empty;
-                                string Attribute2 = string.Empty;
-                                try
+                                var getmatrixinfo = ItemmatrixInformation(Token, AccountId, itemobj.Item[count].itemMatrixID);
+                                if (getmatrixinfo.ItemMatrix != null)
                                 {
-                                    Attribute1 = getmatrixinfo.ItemMatrix.attribute1Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
+                                    itemobj.Item[count].descriptionItemMatrix = getmatrixinfo.ItemMatrix.description;
+                                    itemobj.Item[count].itemAttributeSetID = getmatrixinfo.ItemMatrix.itemAttributeSetID;
+                                    string Attribute1 = string.Empty;
+                                    string Attribute2 = string.Empty;
+                                    try
+                                    {
+                                        Attribute1 = getmatrixinfo.ItemMatrix.attribute1Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
+                                    }
+                                    catch (Exception)
+                                    {
+                                    }
+                                    try
+                                    {
+                                        Attribute2 = getmatrixinfo.ItemMatrix.attribute2Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
+                                    }
+                                    catch (Exception)
+                                    {
+                                    }
+                                    itemobj.Item[count].attribute1Values = Attribute1;
+                                    itemobj.Item[count].attribute2Values = Attribute2;
                                 }
-                                catch (Exception)
+                                var getitemreload = Iteminfromation(Token, AccountId, itemobj.Item[count].itemID);
+                                var getmanufacturerinfo = Manufacturersetinfromation(Token, AccountId, itemobj.Item[count].manufacturerID);
+                                if (getitemreload.Item != null)
                                 {
+
+                                    itemobj.Item[count].shop_0_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderLevel;
+                                    itemobj.Item[count].shop_0_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderPoint;
+                                    itemobj.Item[count].shop_0_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].qoh;
+
+                                    itemobj.Item[count].shop_1_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderLevel;
+                                    itemobj.Item[count].shop_1_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderPoint;
+                                    itemobj.Item[count].shop_1_qoh =/* "shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].qoh;
+
+                                    itemobj.Item[count].shop_2_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderLevel;
+                                    itemobj.Item[count].shop_2_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderPoint;
+                                    itemobj.Item[count].shop_2_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].qoh;
+
+                                    itemobj.Item[count].shop_3_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderLevel;
+                                    itemobj.Item[count].shop_3_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderPoint;
+                                    itemobj.Item[count].shop_3_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].qoh;
+
+                                    itemobj.Item[count].shop_4_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderLevel;
+                                    itemobj.Item[count].shop_4_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderPoint;
+                                    itemobj.Item[count].shop_4_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].qoh;
+
+                                    itemobj.Item[count].shop_5_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderLevel;
+                                    itemobj.Item[count].shop_5_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderPoint;
+                                    itemobj.Item[count].shop_5_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].qoh;
+
+                                    itemobj.Item[count].shop_6_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderLevel;
+                                    itemobj.Item[count].shop_6_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderPoint;
+                                    itemobj.Item[count].shop_6_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].qoh;
+
+                                    itemobj.Item[count].shop_7_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].reorderLevel;
+                                    itemobj.Item[count].shop_7_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].reorderPoint;
+                                    itemobj.Item[count].shop_7_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].qoh;
+
+
+                                    itemobj.Item[count].shop_8_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderLevel;
+                                    itemobj.Item[count].shop_8_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderPoint;
+                                    itemobj.Item[count].shop_8_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].qoh;
+
+
+
+                                    itemobj.Item[count].shop_9_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" + */getitemreload.Item.ItemShops.ItemShop[9].reorderLevel;
+                                    itemobj.Item[count].shop_9_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].reorderPoint;
+                                    itemobj.Item[count].shop_9_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].qoh;
+
+                                    foreach (var item in getitemreload.Item.ItemShops.ItemShop)
+                                    {
+                                        itemobj.Item[count].reorderLevel += "shop_" + item.shopID + "_" + item.reorderLevel + ',';
+                                        itemobj.Item[count].reorderPoint += "shop_" + item.shopID + "_" + item.reorderPoint + ',';
+                                        itemobj.Item[count].shopID += "shop_" + item.shopID + "_" + item.shopID + ',';
+                                        itemobj.Item[count].qoh += "shop_" + item.shopID + "_" + item.qoh + ',';
+                                    }
                                 }
-                                try
+                                if (getmanufacturerinfo.Manufacturer != null)
                                 {
-                                    Attribute2 = getmatrixinfo.ItemMatrix.attribute2Values.ToString().TrimStart('{').TrimStart('[').TrimEnd(']').TrimEnd('}').Replace("\r\n", "").Replace('"', ' ').Replace(" ", "").Trim();
+                                    itemobj.Item[count].BrandName = getmanufacturerinfo.Manufacturer.name;
                                 }
-                                catch (Exception)
+                                var getitemattributeinfo = ItemAttributeSetInformation(Token, AccountId, itemobj.Item[count].itemAttributeSetID);
+                                if (getitemattributeinfo.ItemAttributeSet != null)
                                 {
+                                    itemobj.Item[count].descriptionItemMatrix = getitemattributeinfo.ItemAttributeSet.name;
+                                    itemobj.Item[count].attributeName1 = getitemattributeinfo.ItemAttributeSet.attributeName1;
+                                    itemobj.Item[count].attributeName2 = getitemattributeinfo.ItemAttributeSet.attributeName2;
                                 }
-                                itemobj.Item[count].attribute1Values = Attribute1;
-                                itemobj.Item[count].attribute2Values = Attribute2;
-                            }
-                            var getitemreload = Iteminfromation(Token, AccountId, itemobj.Item[count].itemID);
-                            var getmanufacturerinfo = Manufacturersetinfromation(Token, AccountId, itemobj.Item[count].manufacturerID);
-                            if (getitemreload.Item != null)
-                            {
-
-                                itemobj.Item[count].shop_0_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderLevel;
-                                itemobj.Item[count].shop_0_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].reorderPoint;
-                                itemobj.Item[count].shop_0_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[0].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[0].qoh;
-
-                                itemobj.Item[count].shop_1_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderLevel;
-                                itemobj.Item[count].shop_1_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].reorderPoint;
-                                itemobj.Item[count].shop_1_qoh =/* "shop_" + getitemreload.Item.ItemShops.ItemShop[1].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[1].qoh;
-
-                                itemobj.Item[count].shop_2_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderLevel;
-                                itemobj.Item[count].shop_2_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].reorderPoint;
-                                itemobj.Item[count].shop_2_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[2].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[2].qoh;
-
-                                itemobj.Item[count].shop_3_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderLevel;
-                                itemobj.Item[count].shop_3_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].reorderPoint;
-                                itemobj.Item[count].shop_3_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[3].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[3].qoh;
-
-                                itemobj.Item[count].shop_4_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderLevel;
-                                itemobj.Item[count].shop_4_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].reorderPoint;
-                                itemobj.Item[count].shop_4_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[4].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[4].qoh;
-
-                                itemobj.Item[count].shop_5_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderLevel;
-                                itemobj.Item[count].shop_5_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].reorderPoint;
-                                itemobj.Item[count].shop_5_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[5].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[5].qoh;
-
-                                itemobj.Item[count].shop_6_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderLevel;
-                                itemobj.Item[count].shop_6_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].reorderPoint;
-                                itemobj.Item[count].shop_6_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[6].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[6].qoh;
-
-                                itemobj.Item[count].shop_7_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].reorderLevel;
-                                itemobj.Item[count].shop_7_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].reorderPoint;
-                                itemobj.Item[count].shop_7_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[7].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[7].qoh;
-
-
-                                itemobj.Item[count].shop_8_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderLevel;
-                                itemobj.Item[count].shop_8_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].reorderPoint;
-                                itemobj.Item[count].shop_8_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[8].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[8].qoh;
-
-
-
-                                itemobj.Item[count].shop_9_reorderLevel = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" + */getitemreload.Item.ItemShops.ItemShop[9].reorderLevel;
-                                itemobj.Item[count].shop_9_reorderPoint = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].reorderPoint;
-                                itemobj.Item[count].shop_9_qoh = /*"shop_" + getitemreload.Item.ItemShops.ItemShop[9].shopID + "_" +*/ getitemreload.Item.ItemShops.ItemShop[9].qoh;
-
-                                foreach (var item in getitemreload.Item.ItemShops.ItemShop)
-                                {
-                                    itemobj.Item[count].reorderLevel += "shop_" + item.shopID + "_" + item.reorderLevel + ',';
-                                    itemobj.Item[count].reorderPoint += "shop_" + item.shopID + "_" + item.reorderPoint + ',';
-                                    itemobj.Item[count].shopID += "shop_" + item.shopID + "_" + item.shopID + ',';
-                                    itemobj.Item[count].qoh += "shop_" + item.shopID + "_" + item.qoh + ',';
-                                }
-                            }
-                            if (getmanufacturerinfo.Manufacturer != null)
-                            {
-                                itemobj.Item[count].BrandName = getmanufacturerinfo.Manufacturer.name;
-                            }
-                            var getitemattributeinfo = ItemAttributeSetInformation(Token, AccountId, itemobj.Item[count].itemAttributeSetID);
-                            if (getitemattributeinfo.ItemAttributeSet != null)
-                            {
-                                itemobj.Item[count].descriptionItemMatrix = getitemattributeinfo.ItemAttributeSet.name;
-                                itemobj.Item[count].attributeName1 = getitemattributeinfo.ItemAttributeSet.attributeName1;
-                                itemobj.Item[count].attributeName2 = getitemattributeinfo.ItemAttributeSet.attributeName2;
                             }
                         }
+
                     }
+                }
+            }
+            catch (WebException ex)
+            {
+                if (string.IsNullOrEmpty(jsonResponseText) && (int)((HttpWebResponse)ex.Response).StatusCode == 401 || (int)((HttpWebResponse)ex.Response).StatusCode == 400 || (int)((HttpWebResponse)ex.Response).StatusCode == 500)
+                {
+                    AccesToken1();
+                    goto gotoItemInformation;
+                }
+            }
+            return itemobj;
+
+        }
+        public static ItemReload Iteminfromation(string Token, string AccountId, string itemID)
+        {
+        gotoIteminfromation:
+            if (Token1 != "")
+            {
+                Token = Token1;
+            }
+            try
+            {
+                if (itemID != null)
+                {
+                    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json?load_relations=%5B%22ItemShops%22%5D&itemID=" + itemID);
+                    request.Method = "GET";
+                    request.Headers.Add("Authorization", "Bearer " + Token);
+                    using (System.Net.WebResponse response = request.GetResponse())
+                    {
+                        using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                        {
+                            dynamic jsonResponseText = streamReader.ReadToEnd();
+                            ItemReload itemobj = new ItemReload();
+                            itemobj = new JavaScriptSerializer().Deserialize<ItemReload>(jsonResponseText);
+                            return itemobj;
+                        }
+                    }
+                }
+                else
+                {
+                    ItemReload itemobj = new ItemReload();
+                    List<ItemShop> obj = new List<ItemShop>();
+                    ItemShop man = new ItemShop();
+                    man.reorderLevel = null;
+                    man.reorderPoint = null;
+                    obj.Add(man);
+                    itemobj.Item.ItemShops.ItemShop = obj;
                     return itemobj;
                 }
             }
-        }
-
-        public static ItemReload Iteminfromation(string Token, string AccountId, string itemID)
-        {
-            if (itemID != null)
+            catch (Exception ex)
             {
-                var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Item.json?load_relations=%5B%22ItemShops%22%5D&itemID=" + itemID);
-                request.Method = "GET";
-                request.Headers.Add("Authorization", "Bearer " + Token);
-                using (System.Net.WebResponse response = request.GetResponse())
-                {
-                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
-                    {
-                        dynamic jsonResponseText = streamReader.ReadToEnd();
-                        ItemReload itemobj = new ItemReload();
-                        itemobj = new JavaScriptSerializer().Deserialize<ItemReload>(jsonResponseText);
-                        return itemobj;
-                    }
-                }
+                AccesToken1();
+                goto gotoIteminfromation;
             }
-            else
-            {
-                ItemReload itemobj = new ItemReload();
-                List<ItemShop> obj = new List<ItemShop>();
-                ItemShop man = new ItemShop();
-                man.reorderLevel = null;
-                man.reorderPoint = null;
-                obj.Add(man);
-                itemobj.Item.ItemShops.ItemShop = obj;
-                return itemobj;
-            }
-
         }
-
-
         private static ItemMatrixinfo ItemmatrixInformation(string Token, string AccountId, string itemMatrixID)
         {
-
-            if (itemMatrixID != null && itemMatrixID != "")
+        gotoItemmatrixInformation:
+            if (Token1 != "")
             {
-                var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/ItemMatrix.json?itemMatrixID=" + itemMatrixID);
-
-                request.Method = "GET";
-                request.Headers.Add("Authorization", "Bearer " + Token);
-                using (System.Net.WebResponse response = request.GetResponse())
+                Token = Token1;
+            }
+            try
+            {
+                if (itemMatrixID != null && itemMatrixID != "")
                 {
-                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/ItemMatrix.json?itemMatrixID=" + itemMatrixID);
+                    request.Method = "GET";
+                    request.Headers.Add("Authorization", "Bearer " + Token);
+                    using (System.Net.WebResponse response = request.GetResponse())
                     {
-                        dynamic jsonResponseText = streamReader.ReadToEnd();
-                        ItemMatrixinfo itemobj = new ItemMatrixinfo();
-                        //itemobj = new JavaScriptSerializer().Deserialize<ItemMatrixinfo>(jsonResponseText);
-                        itemobj = JsonConvert.DeserializeObject<ItemMatrixinfo>(jsonResponseText);
-
-                        return itemobj;
+                        using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                        {
+                            dynamic jsonResponseText = streamReader.ReadToEnd();
+                            ItemMatrixinfo itemobj = new ItemMatrixinfo();
+                            //itemobj = new JavaScriptSerializer().Deserialize<ItemMatrixinfo>(jsonResponseText);
+                            itemobj = JsonConvert.DeserializeObject<ItemMatrixinfo>(jsonResponseText);
+                            return itemobj;
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                AccesToken1();
+                goto gotoItemmatrixInformation;
             }
             return null;
         }
 
         private static ItemAttributeSetinfo ItemAttributeSetInformation(string Token, string AccountId, string itemAttriubuteID)
         {
-            if (itemAttriubuteID != null)
+        gotoItemAttributeSetInformation:
+            if (Token1 != "")
             {
-                var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/ItemAttributeSet.json?itemAttributeSetID=" + itemAttriubuteID);
-
-                request.Method = "GET";
-                request.Headers.Add("Authorization", "Bearer " + Token);
-                using (System.Net.WebResponse response = request.GetResponse())
+                Token = Token1;
+            }
+            try
+            {
+                if (itemAttriubuteID != null)
                 {
-                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/ItemAttributeSet.json?itemAttributeSetID=" + itemAttriubuteID);
+                    request.Method = "GET";
+                    request.Headers.Add("Authorization", "Bearer " + Token);
+                    using (System.Net.WebResponse response = request.GetResponse())
                     {
-                        dynamic jsonResponseText = streamReader.ReadToEnd();
-                        ItemAttributeSetinfo itemobj = new ItemAttributeSetinfo();
-                        itemobj = new JavaScriptSerializer().Deserialize<ItemAttributeSetinfo>(jsonResponseText);
-                        return itemobj;
+                        using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                        {
+                            dynamic jsonResponseText = streamReader.ReadToEnd();
+                            ItemAttributeSetinfo itemobj = new ItemAttributeSetinfo();
+                            itemobj = new JavaScriptSerializer().Deserialize<ItemAttributeSetinfo>(jsonResponseText);
+                            return itemobj;
+                        }
                     }
                 }
+                else
+                {
+                    ItemAttributeSetinfo itemobj = new ItemAttributeSetinfo();
+                    itemobj.ItemAttributeSet = null;
+                    return itemobj;
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                ItemAttributeSetinfo itemobj = new ItemAttributeSetinfo();
-                itemobj.ItemAttributeSet = null;
-                return itemobj;
+                AccesToken1();
+                goto gotoItemAttributeSetInformation;
             }
+
+
         }
 
 
         public static ManufacturerObject Manufacturersetinfromation(string Token, string AccountId, string manufacturerID)
         {
-            if (manufacturerID != null)
+        gotoManufacturersetinfromation:
+            if (Token1 != "")
             {
-                var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Manufacturer.json?manufacturerID=" + manufacturerID);
-                request.Method = "GET";
-                request.Headers.Add("Authorization", "Bearer " + Token);
-                using (System.Net.WebResponse response = request.GetResponse())
+                Token = Token1;
+            }
+            try
+            {
+
+                if (manufacturerID != null)
                 {
-                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                    var request = System.Net.HttpWebRequest.Create("https://api.lightspeedapp.com/API/Account/" + AccountId + "/Manufacturer.json?manufacturerID=" + manufacturerID);
+                    request.Method = "GET";
+                    request.Headers.Add("Authorization", "Bearer " + Token);
+                    using (System.Net.WebResponse response = request.GetResponse())
                     {
-                        dynamic jsonResponseText = streamReader.ReadToEnd();
-                        ManufacturerObject itemobj = new ManufacturerObject();
-                        // itemobj = JsonConvert.DeserializeObject<ManufacturerObject>(jsonResponseText);
-                        itemobj = new JavaScriptSerializer().Deserialize<ManufacturerObject>(jsonResponseText);
-                        return itemobj;
+                        using (System.IO.StreamReader streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                        {
+                            dynamic jsonResponseText = streamReader.ReadToEnd();
+                            ManufacturerObject itemobj = new ManufacturerObject();
+                            // itemobj = JsonConvert.DeserializeObject<ManufacturerObject>(jsonResponseText);
+                            itemobj = new JavaScriptSerializer().Deserialize<ManufacturerObject>(jsonResponseText);
+                            return itemobj;
+                        }
                     }
                 }
+                else
+                {
+                    ManufacturerObject itemobj = new ManufacturerObject();
+                    Manufacturer man = new Manufacturer();
+                    man.name = null;
+                    itemobj.Manufacturer = man;
+                    return itemobj;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ManufacturerObject itemobj = new ManufacturerObject();
-                Manufacturer man = new Manufacturer();
-                man.name = null;
-                itemobj.Manufacturer = man;
-                return itemobj;
+                AccesToken1();
+                goto gotoManufacturersetinfromation;
             }
         }
 
-        private static void InsertInvoiceItemssingle(salessingle salaesitems)
+        private static string InsertInvoiceItemssingle(salessingle salaesitems)
         {
-
+            string Message = "";
             string connetionString = null;
             MySqlConnection cnn;
             connetionString = "Server = rproods.cluster-c2vodxkdsl4p.us-east-1.rds.amazonaws.com; Port = 3306; Database = RPROODS; Uid = reportuser; Pwd = fuykA4LH; ";
             cnn = new MySqlConnection(connetionString);
             DataSet ds = new DataSet();
             var saleID = salaesitems.Sale.saleID;
-
             if (saleID != "")
             {
                 string query1 = "select SALE_ID,EMPLOYEE_ID,CUSTOMER_ID,STORE_ID,DISCOUNT_PERC from INVOICES where SALE_ID=" + salaesitems.Sale.saleID;
-
                 MySqlCommand cmd1 = new MySqlCommand(query1);
                 cmd1.Connection = cnn;
                 DataSet dsn = new DataSet();
@@ -988,99 +1255,107 @@ namespace LightSpeedAPI.Controllers
                         cmd.Parameters.AddWithValue("Discountper", Discountper);
                         cmd.Connection = cnn;
                         var a = cmd.ExecuteNonQuery();
+                        Message = "successfully Inserted";
                         //cnn.Close();
 
                     }
                     catch (Exception ex)
                     {
-
+                        Message = ex.Message;
                     }
                 }
                 else
                 {
-                    cnn.Open();
-                    MySqlCommand cmd2 = new MySqlCommand();
-                    cmd2.Connection = cnn;
-                    Int32 employeeID;
-                    Int32 customerID;
-                    Int32 shopID;
-                    Decimal Discountper;
-                    DateTime datetimevalue;
-                    if (salaesitems.Sale.employeeID == "")
+                    try
                     {
-                        employeeID = 0;
-                    }
-                    else
-                    {
-                        employeeID = Convert.ToInt32(salaesitems.Sale.employeeID);
-                    }
+                        cnn.Open();
+                        MySqlCommand cmd2 = new MySqlCommand();
+                        cmd2.Connection = cnn;
+                        Int32 employeeID;
+                        Int32 customerID;
+                        Int32 shopID;
+                        Decimal Discountper;
+                        DateTime datetimevalue;
+                        if (salaesitems.Sale.employeeID == "")
+                        {
+                            employeeID = 0;
+                        }
+                        else
+                        {
+                            employeeID = Convert.ToInt32(salaesitems.Sale.employeeID);
+                        }
 
 
-                    if (salaesitems.Sale.customerID == "")
-                    {
-                        customerID = 0;
-                    }
-                    else
-                    {
-                        customerID = Convert.ToInt32(salaesitems.Sale.customerID);
-                    }
+                        if (salaesitems.Sale.customerID == "")
+                        {
+                            customerID = 0;
+                        }
+                        else
+                        {
+                            customerID = Convert.ToInt32(salaesitems.Sale.customerID);
+                        }
 
-                    if (salaesitems.Sale.shopID == "")
-                    {
-                        shopID = 0;
-                    }
-                    else
-                    {
-                        shopID = Convert.ToInt32(salaesitems.Sale.shopID);
-                    }
-
-
-                    if (salaesitems.Sale.discountPercent == "")
-                    {
-                        Discountper = 0;
-                    }
-                    else
-                    {
-                        Discountper = Convert.ToDecimal(salaesitems.Sale.discountPercent);
-                    }
+                        if (salaesitems.Sale.shopID == "")
+                        {
+                            shopID = 0;
+                        }
+                        else
+                        {
+                            shopID = Convert.ToInt32(salaesitems.Sale.shopID);
+                        }
 
 
-                    if (salaesitems.Sale.discountPercent == "")
-                    {
-                        Discountper = 0;
+                        if (salaesitems.Sale.discountPercent == "")
+                        {
+                            Discountper = 0;
+                        }
+                        else
+                        {
+                            Discountper = Convert.ToDecimal(salaesitems.Sale.discountPercent);
+                        }
+
+
+                        if (salaesitems.Sale.discountPercent == "")
+                        {
+                            Discountper = 0;
+                        }
+                        else
+                        {
+                            Discountper = Convert.ToDecimal(salaesitems.Sale.discountPercent);
+                        }
+                        if (salaesitems.Sale.timeStamp == null)
+                        {
+                            datetimevalue = Convert.ToDateTime(0);
+                        }
+                        else
+                        {
+                            datetimevalue = Convert.ToDateTime(salaesitems.Sale.timeStamp);
+                        }
+                        string updateQuery = "UPDATE INVOICES SET EMPLOYEE_ID = @employeeID , CUSTOMER_ID = @customerID, STORE_ID =@shopID , DISCOUNT_PERC = @Discountper , TIME_STAMP = @datetimevalue  WHERE SALE_ID=" + Convert.ToInt64(salaesitems.Sale.saleID);
+                        cmd2.CommandText = updateQuery;
+                        cmd2.Parameters.AddWithValue("@employeeID", employeeID);
+                        cmd2.Parameters.AddWithValue("@customerID", customerID);
+                        cmd2.Parameters.AddWithValue("@shopID", shopID);
+                        cmd2.Parameters.AddWithValue("@Discountper", Discountper);
+                        cmd2.Parameters.AddWithValue("@datetimevalue", datetimevalue);
+                        cmd2.ExecuteNonQuery();
+                        Message = "successfully updated";
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Discountper = Convert.ToDecimal(salaesitems.Sale.discountPercent);
+                        Message = ex.Message;
                     }
-                    if (salaesitems.Sale.timeStamp == null)
-                    {
-                        datetimevalue = Convert.ToDateTime(0);
-                    }
-                    else
-                    {
-                        datetimevalue = Convert.ToDateTime(salaesitems.Sale.timeStamp);
-                    }
-                    string updateQuery = "UPDATE INVOICES SET EMPLOYEE_ID = @employeeID , CUSTOMER_ID = @customerID, STORE_ID =@shopID , DISCOUNT_PERC = @Discountper , TIME_STAMP = @datetimevalue  WHERE SALE_ID=" + Convert.ToInt64(salaesitems.Sale.saleID);
-                    cmd2.CommandText = updateQuery;
-                    cmd2.Parameters.AddWithValue("@employeeID", employeeID);
-                    cmd2.Parameters.AddWithValue("@customerID", customerID);
-                    cmd2.Parameters.AddWithValue("@shopID", shopID);
-                    cmd2.Parameters.AddWithValue("@Discountper", Discountper);
-                    cmd2.Parameters.AddWithValue("@datetimevalue", datetimevalue);
-                    cmd2.ExecuteNonQuery();
                 }
                 cnn.Close();
             }
-
+            return Message;
         }
 
 
 
-
-
-        private static void InsertInvoiceItems(Salesinfo salaesitems)
+        private static string InsertInvoiceItems(Salesinfo salaesitems)
         {
+            string Message = "";
             for (Int32 Rowscount = 0; Rowscount <= salaesitems.Sale.Count() - 1; Rowscount++)
             {
                 string connetionString = null;
@@ -1180,300 +1455,106 @@ namespace LightSpeedAPI.Controllers
                             cmd.Parameters.AddWithValue("Discountper", Discountper);
                             cmd.Connection = cnn;
                             var a = cmd.ExecuteNonQuery();
+                            Message = "successfully Created";
                             //cnn.Close();
 
                         }
                         catch (Exception ex)
                         {
-
+                            Message = ex.Message;
                         }
                     }
                     else
                     {
-                        cnn.Open();
-                        MySqlCommand cmd2 = new MySqlCommand();
-                        cmd2.Connection = cnn;
-                        Int32 employeeID;
-                        Int32 customerID;
-                        Int32 shopID;
-                        Decimal Discountper;
-                        DateTime datetimevalue;
-                        if (salaesitems.Sale[Rowscount].employeeID == "")
+                        try
                         {
-                            employeeID = 0;
-                        }
-                        else
-                        {
-                            employeeID = Convert.ToInt32(salaesitems.Sale[Rowscount].employeeID);
-                        }
+                            cnn.Open();
+                            MySqlCommand cmd2 = new MySqlCommand();
+                            cmd2.Connection = cnn;
+                            Int32 employeeID;
+                            Int32 customerID;
+                            Int32 shopID;
+                            Decimal Discountper;
+                            DateTime datetimevalue;
+                            if (salaesitems.Sale[Rowscount].employeeID == "")
+                            {
+                                employeeID = 0;
+                            }
+                            else
+                            {
+                                employeeID = Convert.ToInt32(salaesitems.Sale[Rowscount].employeeID);
+                            }
 
 
-                        if (salaesitems.Sale[Rowscount].customerID == "")
-                        {
-                            customerID = 0;
-                        }
-                        else
-                        {
-                            customerID = Convert.ToInt32(salaesitems.Sale[Rowscount].customerID);
-                        }
+                            if (salaesitems.Sale[Rowscount].customerID == "")
+                            {
+                                customerID = 0;
+                            }
+                            else
+                            {
+                                customerID = Convert.ToInt32(salaesitems.Sale[Rowscount].customerID);
+                            }
 
-                        if (salaesitems.Sale[Rowscount].shopID == "")
-                        {
-                            shopID = 0;
-                        }
-                        else
-                        {
-                            shopID = Convert.ToInt32(salaesitems.Sale[Rowscount].shopID);
-                        }
-
-
-                        if (salaesitems.Sale[Rowscount].discountPercent == "")
-                        {
-                            Discountper = 0;
-                        }
-                        else
-                        {
-                            Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
-                        }
+                            if (salaesitems.Sale[Rowscount].shopID == "")
+                            {
+                                shopID = 0;
+                            }
+                            else
+                            {
+                                shopID = Convert.ToInt32(salaesitems.Sale[Rowscount].shopID);
+                            }
 
 
-                        if (salaesitems.Sale[Rowscount].discountPercent == "")
-                        {
-                            Discountper = 0;
+                            if (salaesitems.Sale[Rowscount].discountPercent == "")
+                            {
+                                Discountper = 0;
+                            }
+                            else
+                            {
+                                Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
+                            }
+
+
+                            if (salaesitems.Sale[Rowscount].discountPercent == "")
+                            {
+                                Discountper = 0;
+                            }
+                            else
+                            {
+                                Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
+                            }
+                            if (salaesitems.Sale[Rowscount].timeStamp == null)
+                            {
+                                datetimevalue = Convert.ToDateTime(0);
+                            }
+                            else
+                            {
+                                datetimevalue = Convert.ToDateTime(salaesitems.Sale[Rowscount].timeStamp);
+                            }
+                            string updateQuery = "UPDATE INVOICES SET EMPLOYEE_ID = @employeeID , CUSTOMER_ID = @customerID, STORE_ID =@shopID , DISCOUNT_PERC = @Discountper , TIME_STAMP = @datetimevalue  WHERE SALE_ID=" + Convert.ToInt64(salaesitems.Sale[Rowscount].saleID);
+                            cmd2.CommandText = updateQuery;
+                            cmd2.Parameters.AddWithValue("@employeeID", employeeID);
+                            cmd2.Parameters.AddWithValue("@customerID", customerID);
+                            cmd2.Parameters.AddWithValue("@shopID", shopID);
+                            cmd2.Parameters.AddWithValue("@Discountper", Discountper);
+                            cmd2.Parameters.AddWithValue("@datetimevalue", datetimevalue);
+                            cmd2.ExecuteNonQuery();
+                            Message = "successfully Updated";
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
+                            Message = ex.Message;
                         }
-                        if (salaesitems.Sale[Rowscount].timeStamp == null)
-                        {
-                            datetimevalue = Convert.ToDateTime(0);
-                        }
-                        else
-                        {
-                            datetimevalue = Convert.ToDateTime(salaesitems.Sale[Rowscount].timeStamp);
-                        }
-                        string updateQuery = "UPDATE INVOICES SET EMPLOYEE_ID = @employeeID , CUSTOMER_ID = @customerID, STORE_ID =@shopID , DISCOUNT_PERC = @Discountper , TIME_STAMP = @datetimevalue  WHERE SALE_ID=" + Convert.ToInt64(salaesitems.Sale[Rowscount].saleID);
-                        cmd2.CommandText = updateQuery;
-                        cmd2.Parameters.AddWithValue("@employeeID", employeeID);
-                        cmd2.Parameters.AddWithValue("@customerID", customerID);
-                        cmd2.Parameters.AddWithValue("@shopID", shopID);
-                        cmd2.Parameters.AddWithValue("@Discountper", Discountper);
-                        cmd2.Parameters.AddWithValue("@datetimevalue", datetimevalue);
-                        cmd2.ExecuteNonQuery();
                     }
                     cnn.Close();
                 }
             }
+            return Message;
         }
 
-
-
-
-        //private static void InsertInvoiceItems(Salesinfo salaesitems)
-        //{
-        //    for (Int32 Rowscount = 0; Rowscount <= salaesitems.Sale.Count() - 1; Rowscount++)
-        //    {
-        //        string connetionString = null;
-        //        MySqlConnection cnn;
-        //        connetionString = "Server = rproods.cluster-c2vodxkdsl4p.us-east-1.rds.amazonaws.com; Port = 3306; Database = RPROODS; Uid = reportuser; Pwd = fuykA4LH; ";
-        //        cnn = new MySqlConnection(connetionString);
-        //        DataSet ds = new DataSet();
-        //        var saleID = salaesitems.Sale[Rowscount].saleID;
-
-        //        if (saleID != "")
-        //        {
-        //            string query1 = "select SALE_ID,EMPLOYEE_ID,CUSTOMER_ID,STORE_ID,DISCOUNT_PERC from INVOICES where SALE_ID=" + salaesitems.Sale[Rowscount].saleID;
-
-        //            MySqlCommand cmd1 = new MySqlCommand(query1);
-        //            cmd1.Connection = cnn;
-        //            DataSet dsn = new DataSet();
-        //            MySqlDataAdapter adp1 = new MySqlDataAdapter();
-        //            adp1.SelectCommand = cmd1;
-        //            adp1.Fill(dsn);
-        //            var ccoun = dsn.Tables[0].Rows.Count;
-        //            if (ccoun == 0)
-        //            {
-        //                try
-        //                {
-        //                    cnn.Open();
-        //                    string query = "Insert into INVOICES(SALE_ID,TIME_STAMP,EMPLOYEE_ID,CUSTOMER_ID,STORE_ID,DISCOUNT_PERC) Values (@saleID,@timeStamp,@employeeID,@customerID,@shopID,@Discountper)";
-        //                    MySqlCommand cmd = new MySqlCommand();
-        //                    cmd.CommandText = query;
-        //                    Int32 employeeID;
-        //                    Int32 customerID;
-        //                    Int32 shopID;
-        //                    Decimal Discountper;
-        //                    DateTime datetimevalue;
-        //                    if (salaesitems.Sale[Rowscount].employeeID == "")
-        //                    {
-        //                        employeeID = 0;
-        //                    }
-        //                    else
-        //                    {
-        //                        employeeID = Convert.ToInt32(salaesitems.Sale[Rowscount].employeeID);
-        //                    }
-
-
-        //                    if (salaesitems.Sale[Rowscount].customerID == "")
-        //                    {
-        //                        customerID = 0;
-        //                    }
-        //                    else
-        //                    {
-        //                        customerID = Convert.ToInt32(salaesitems.Sale[Rowscount].customerID);
-        //                    }
-
-        //                    if (salaesitems.Sale[Rowscount].shopID == "")
-        //                    {
-        //                        shopID = 0;
-        //                    }
-        //                    else
-        //                    {
-        //                        shopID = Convert.ToInt32(salaesitems.Sale[Rowscount].shopID);
-        //                    }
-
-
-        //                    if (salaesitems.Sale[Rowscount].discountPercent == "")
-        //                    {
-        //                        Discountper = 0;
-        //                    }
-        //                    else
-        //                    {
-        //                        Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
-        //                    }
-
-
-        //                    if (salaesitems.Sale[Rowscount].discountPercent == "")
-        //                    {
-        //                        Discountper = 0;
-        //                    }
-        //                    else
-        //                    {
-        //                        Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
-        //                    }
-
-
-        //                    if (salaesitems.Sale[Rowscount].timeStamp == null)
-        //                    {
-        //                        datetimevalue = Convert.ToDateTime(0);
-        //                    }
-        //                    else
-        //                    {
-        //                        datetimevalue = Convert.ToDateTime(salaesitems.Sale[Rowscount].timeStamp);
-        //                    }
-
-
-
-
-        //                    cmd.Parameters.AddWithValue("saleID", saleID);
-        //                    cmd.Parameters.AddWithValue("timeStamp", datetimevalue);
-        //                    cmd.Parameters.AddWithValue("employeeID", employeeID);
-        //                    cmd.Parameters.AddWithValue("customerID", customerID);
-        //                    cmd.Parameters.AddWithValue("shopID", shopID);
-        //                    cmd.Parameters.AddWithValue("Discountper", Discountper);
-        //                    cmd.Connection = cnn;
-        //                    var a = cmd.ExecuteNonQuery();
-        //                    //cnn.Close();
-
-        //                }
-        //                catch (Exception ex)
-        //                {
-
-        //                }
-        //            }
-        //            else
-        //            {
-        //                cnn.Open();
-        //                MySqlCommand cmd2 = new MySqlCommand();
-        //                cmd2.Connection = cnn;
-        //                Int32 employeeID;
-        //                Int32 customerID;
-        //                Int32 shopID;
-        //                Decimal Discountper;
-        //                DateTime datetimevalue;
-        //                if (salaesitems.Sale[Rowscount].employeeID == "")
-        //                {
-        //                    employeeID = 0;
-        //                }
-        //                else
-        //                {
-        //                    employeeID = Convert.ToInt32(salaesitems.Sale[Rowscount].employeeID);
-        //                }
-
-
-        //                if (salaesitems.Sale[Rowscount].customerID == "")
-        //                {
-        //                    customerID = 0;
-        //                }
-        //                else
-        //                {
-        //                    customerID = Convert.ToInt32(salaesitems.Sale[Rowscount].customerID);
-        //                }
-
-        //                if (salaesitems.Sale[Rowscount].shopID == "")
-        //                {
-        //                    shopID = 0;
-        //                }
-        //                else
-        //                {
-        //                    shopID = Convert.ToInt32(salaesitems.Sale[Rowscount].shopID);
-        //                }
-
-
-        //                if (salaesitems.Sale[Rowscount].discountPercent == "")
-        //                {
-        //                    Discountper = 0;
-        //                }
-        //                else
-        //                {
-        //                    Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
-        //                }
-
-
-        //                if (salaesitems.Sale[Rowscount].discountPercent == "")
-        //                {
-        //                    Discountper = 0;
-        //                }
-        //                else
-        //                {
-        //                    Discountper = Convert.ToDecimal(salaesitems.Sale[Rowscount].discountPercent);
-        //                }
-
-
-        //                if (salaesitems.Sale[Rowscount].timeStamp == null)
-        //                {
-        //                    datetimevalue = Convert.ToDateTime(0);
-        //                }
-        //                else
-        //                {
-        //                    datetimevalue = Convert.ToDateTime(salaesitems.Sale[Rowscount].timeStamp);
-        //                }
-
-
-
-        //                string updateQuery = "UPDATE INVOICES SET EMPLOYEE_ID = @employeeID , CUSTOMER_ID = @customerID, STORE_ID =@shopID , DISCOUNT_PERC = @Discountper , TIME_STAMP = @datetimevalue  WHERE SALE_ID=" + Convert.ToInt64(salaesitems.Sale[Rowscount].saleID);
-        //                cmd2.CommandText = updateQuery;
-        //                cmd2.Parameters.AddWithValue("@employeeID", employeeID);
-        //                cmd2.Parameters.AddWithValue("@customerID", customerID);
-        //                cmd2.Parameters.AddWithValue("@shopID", shopID);
-        //                cmd2.Parameters.AddWithValue("@Discountper", Discountper);
-        //                cmd2.Parameters.AddWithValue("@datetimevalue", datetimevalue);
-
-        //                cmd2.ExecuteNonQuery();
-
-        //            }
-        //            cnn.Close();
-        //        }
-
-
-
-        //    }
-
-        //}
-
-        private static void InsertShopItems(Shopinfo shopitems)
+        private static string InsertShopItems(Shopinfo shopitems)
         {
+            string Message = "";
             for (Int32 Rowscount = 0; Rowscount <= shopitems.Shop.Count() - 1; Rowscount++)
             {
                 string connetionString = null;
@@ -1505,28 +1586,40 @@ namespace LightSpeedAPI.Controllers
                             cmd.Parameters.AddWithValue("STORE_NAME", shopitems.Shop[Rowscount].name);
                             cmd.Connection = cnn;
                             var a = cmd.ExecuteNonQuery();
+                            Message = "sucessfully Inserted";
                         }
                         catch (Exception ex)
                         {
+                            Message = ex.Message;
                         }
                     }
                     else
                     {
-                        MySqlCommand cmd2 = new MySqlCommand();
-                        cmd2.Connection = cnn;
-                        string updateQuery = "UPDATE SHOP SET STORE_NAME = @ShopName WHERE STORE_ID=@StoreId";
-                        cmd2.CommandText = updateQuery;
-                        cmd2.Parameters.AddWithValue("@ShopName", shopitems.Shop[Rowscount].name.ToString());
-                        cmd2.Parameters.AddWithValue("@StoreId", Convert.ToInt64(shopitems.Shop[Rowscount].shopID));
-                        cmd2.ExecuteNonQuery();
+                        try
+                        {
+                            MySqlCommand cmd2 = new MySqlCommand();
+                            cmd2.Connection = cnn;
+                            string updateQuery = "UPDATE SHOP SET STORE_NAME = @ShopName WHERE STORE_ID=@StoreId";
+                            cmd2.CommandText = updateQuery;
+                            cmd2.Parameters.AddWithValue("@ShopName", shopitems.Shop[Rowscount].name.ToString());
+                            cmd2.Parameters.AddWithValue("@StoreId", Convert.ToInt64(shopitems.Shop[Rowscount].shopID));
+                            cmd2.ExecuteNonQuery();
+                            Message = "sucessfully Updated";
+                        }
+                        catch (Exception ex)
+                        {
+                            Message = ex.Message;
+                        }
                     }
                 }
                 cnn.Close();
             }
+            return Message;
         }
 
-        private static void InsertSalesLineItems(SaleLineinfo shopitems)
+        private static string InsertSalesLineItems(SaleLineinfo shopitems)
         {
+            string message = "";
             for (Int32 Rowscount = 0; Rowscount <= shopitems.SaleLine.Count() - 1; Rowscount++)
             {
                 string connetionString = null;
@@ -1617,9 +1710,11 @@ namespace LightSpeedAPI.Controllers
                             cmd.Connection = cnn;
                             var a = cmd.ExecuteNonQuery();
                             cnn.Close();
+                            message = "sucessfully created";
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            message = ex.Message;
                         }
                     }
                     else
@@ -1734,22 +1829,23 @@ namespace LightSpeedAPI.Controllers
                             cmd2.Parameters.AddWithValue("@calcTotal", calcTotal);
                             cmd2.CommandText = updateQuery;
                             cmd2.ExecuteNonQuery();
+                            message = "sucessfully Updated";
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            message = ex.Message;
                         }
 
                     }
                     cnn.Close();
                 }
             }
+            return message;
         }
 
-
-
-        private static void InsertSalesLineSingleItems(Salelininfromation shopitems)
+        private static string InsertSalesLineSingleItems(Salelininfromation shopitems)
         {
-
+            string Message = "";
             string connetionString = null;
             MySqlConnection cnn;
             connetionString = "Server = rproods.cluster-c2vodxkdsl4p.us-east-1.rds.amazonaws.com; Port = 3306; Database = RPROODS; Uid = reportuser; Pwd = fuykA4LH; ";
@@ -1838,9 +1934,12 @@ namespace LightSpeedAPI.Controllers
                         cmd.Connection = cnn;
                         var a = cmd.ExecuteNonQuery();
                         cnn.Close();
+                        Message = "Inserted successfully";
+
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+
                     }
                 }
                 else
@@ -1955,23 +2054,29 @@ namespace LightSpeedAPI.Controllers
                         cmd2.Parameters.AddWithValue("@calcTotal", calcTotal);
                         cmd2.CommandText = updateQuery;
                         cmd2.ExecuteNonQuery();
+
+                        Message = "update successfully";
+
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+
                     }
 
                 }
                 cnn.Close();
-            }
 
+            }
+            return Message;
         }
 
 
-        private static void InsertInventorySingleItems(itemsingleinfromation shopitems)
+        private static string InsertInventorySingleItems(itemsingleinfromation shopitems)
         {
 
-
+            string Message = "";
             string connetionString = null;
+
             MySqlConnection cnn;
             connetionString = "Server = rproods.cluster-c2vodxkdsl4p.us-east-1.rds.amazonaws.com; Port = 3306; Database = RPROODS; Uid = reportuser; Pwd = fuykA4LH; ";
             cnn = new MySqlConnection(connetionString);
@@ -1993,7 +2098,7 @@ namespace LightSpeedAPI.Controllers
                     var ccoun = dsn.Tables[0].Rows.Count;
                     if (ccoun == 0)
                     {
-                        string query = "Insert into INVENTORY(CreatedDate,LSITEM_ID,Category,attribute1 ,attribute2,UPC,ALU,ITEM_SID,BRAND,MATRIX_ID,COST,ITEM_NAME,ITEM_ATT_SET_ID,ITEM_ATT_SET_NAME,ITEM_ATT_1,ITEM_ATT_2,Price,MSRP,systemSku,BrandName ,reorderLevel,reorderPoint,shopID,qoh,shop_0_qoh,shop_0_reorderLevel,shop_0_reorderPoint,shop_1_qoh,shop_1_reorderLevel,shop_1_reorderPoint, shop_2_qoh,shop_2_reorderLevel,shop_2_reorderPoint,shop_3_qoh,shop_3_reorderLevel,shop_3_reorderPoint,shop_4_qoh,shop_4_reorderLevel,shop_4_reorderPoint,shop_5_qoh,shop_5_reorderLevel,shop_5_reorderPoint,shop_6_qoh,shop_6_reorderLevel,shop_6_reorderPoint,shop_7_qoh,shop_7_reorderLevel,shop_7_reorderPoint,shop_8_qoh,shop_8_reorderLevel,shop_8_reorderPoint,shop_9_qoh,shop_9_reorderLevel,shop_9_reorderPoint) Values (@CreatedDate,@LSITEM_ID,@Category,@attribute1,@attribute2,@UPC,@ALU,@ITEM_SID,@BRAND,@MATRIX_ID,@COST,@ITEM_NAME,@ITEM_ATT_SET_ID,@ITEM_ATT_SET_NAME,@ITEM_ATT_1,@ITEM_ATT_2,@Price,@MSRP,@systemSku,@BrandName,@reorderLevel,@reorderPoint,@shopID,@qoh,shop_0_qoh,shop_0_reorderLevel,shop_0_reorderPoint,@shop_1_qoh,@shop_1_reorderLevel,@shop_1_reorderPoint,@shop_2_qoh,@shop_2_reorderLevel,@shop_2_reorderPoint,@shop_3_qoh,@shop_3_reorderLevel,@shop_3_reorderPoint,@shop_4_qoh,@shop_4_reorderLevel,@shop_4_reorderPoint,@shop_5_qoh,@shop_5_reorderLevel,@shop_5_reorderPoint,@shop_6_qoh,@shop_6_reorderLevel,@shop_6_reorderPoint,@shop_7_qoh,@shop_7_reorderLevel,@shop_7_reorderPoint,@shop_8_qoh,@shop_8_reorderLevel,@shop_8_reorderPoint,@shop_9_qoh,@shop_9_reorderLevel,@shop_9_reorderPoint)";
+                        string query = "Insert into INVENTORY(CreatedDate,LSITEM_ID,Category,attribute1 ,attribute2,UPC,ALU,ITEM_SID,BRAND,MATRIX_ID,COST,ITEM_NAME,ITEM_ATT_SET_ID,ITEM_ATT_SET_NAME,ITEM_ATT_1,ITEM_ATT_2,Price,MSRP,systemSku,BrandName ,reorderLevel,reorderPoint,shopID,qoh,shop_0_qoh,shop_0_reorderLevel,shop_0_reorderPoint,shop_1_qoh,shop_1_reorderLevel,shop_1_reorderPoint, shop_2_qoh,shop_2_reorderLevel,shop_2_reorderPoint,shop_3_qoh,shop_3_reorderLevel,shop_3_reorderPoint,shop_4_qoh,shop_4_reorderLevel,shop_4_reorderPoint,shop_5_qoh,shop_5_reorderLevel,shop_5_reorderPoint,shop_6_qoh,shop_6_reorderLevel,shop_6_reorderPoint,shop_7_qoh,shop_7_reorderLevel,shop_7_reorderPoint,shop_8_qoh,shop_8_reorderLevel,shop_8_reorderPoint,shop_9_qoh,shop_9_reorderLevel,shop_9_reorderPoint) Values (@CreatedDate,@LSITEM_ID,@Category,@attribute1,@attribute2,@UPC,@ALU,@ITEM_SID,@BRAND,@MATRIX_ID,@COST,@ITEM_NAME,@ITEM_ATT_SET_ID,@ITEM_ATT_SET_NAME,@ITEM_ATT_1,@ITEM_ATT_2,@Price,@MSRP,@systemSku,@BrandName,@reorderLevel,@reorderPoint,@shopID,@qoh,@shop_0_qoh,@shop_0_reorderLevel,@shop_0_reorderPoint,@shop_1_qoh,@shop_1_reorderLevel,@shop_1_reorderPoint,@shop_2_qoh,@shop_2_reorderLevel,@shop_2_reorderPoint,@shop_3_qoh,@shop_3_reorderLevel,@shop_3_reorderPoint,@shop_4_qoh,@shop_4_reorderLevel,@shop_4_reorderPoint,@shop_5_qoh,@shop_5_reorderLevel,@shop_5_reorderPoint,@shop_6_qoh,@shop_6_reorderLevel,@shop_6_reorderPoint,@shop_7_qoh,@shop_7_reorderLevel,@shop_7_reorderPoint,@shop_8_qoh,@shop_8_reorderLevel,@shop_8_reorderPoint,@shop_9_qoh,@shop_9_reorderLevel,@shop_9_reorderPoint)";
                         // string query = "Insert into INVENTORY(CreatedDate,LSITEM_ID,CATEGORY,UPC,ALU,ITEM_SID,BRAND,MATRIX_ID,COST,ITEM_NAME,ITEM_ATT_SET_ID,ITEM_ATT_SET_NAME,ITEM_ATT_1,ITEM_ATT_2,Price,MSRP,MATRIX_ID) Values (@CreatedDate,@LSITEM_ID,@CATEGORY,@UPC,@ALU,@ITEM_SID,@BRAND,@MATRIX_ID,@COST,@ITEM_NAME,@ITEM_ATT_SET_ID,@ITEM_ATT_SET_NAME,@ITEM_ATT_1,@ITEM_ATT_2,@Price,@MSRP,@MATRIX_ID)";
                         MySqlCommand cmd = new MySqlCommand();
                         cmd.CommandText = query;
@@ -2332,17 +2437,9 @@ namespace LightSpeedAPI.Controllers
                         {
                             cmd.Parameters.AddWithValue("shop_9_reorderPoint", "");
                         }
-
-
-
-
-                        //if (shopitems.Item[Rowscount].manufacturerSku != null && shopitems.Item[Rowscount].manufacturerSku != "")
-                        //    cmd.Parameters.AddWithValue("ITEM_SID", (shopitems.Item[Rowscount].manufacturerSku).ToString());
-                        //else
-                        //    cmd.Parameters.AddWithValue("ITEM_SID", "");
-
                         cmd.Connection = cnn;
                         cmd.ExecuteNonQuery();
+                        Message = "sucessfully Inserted";
                     }
 
                     else
@@ -2403,14 +2500,6 @@ namespace LightSpeedAPI.Controllers
                         string shop_7_reorderPoint;
                         string shop_8_reorderPoint;
                         string shop_9_reorderPoint;
-
-                        //Int32 MATRIX_ID;
-                        //if ((shopitems.Item[Rowscount].itemMatrixID).ToString() != "")
-                        //    cmd.Parameters.AddWithValue("MATRIX_ID", Convert.ToInt32(shopitems.Item[Rowscount].itemMatrixID));
-                        //else
-                        //    cmd.Parameters.AddWithValue("MATRIX_ID", "");
-                        //   var a = Convert.ToInt64(shopitems.Item[Rowscount].);
-
                         CreatedDate = shopitems.Item.createTime;
                         if (shopitems.Item.manufacturerSku == "")
                         {
@@ -2564,7 +2653,7 @@ namespace LightSpeedAPI.Controllers
                             systemSku = shopitems.Item.systemSku.ToString();
                         }
 
-                        if (shopitems.Item.BrandName == null && shopitems.Item.BrandName == "")
+                        if (shopitems.Item.BrandName == null || shopitems.Item.BrandName == "")
                         {
                             BrandName = "";
                         }
@@ -2873,14 +2962,6 @@ namespace LightSpeedAPI.Controllers
                         {
                             qoh = shopitems.Item.qoh.ToString();
                         }
-                        //if (shopitems.Item[Rowscount].description == "")
-                        //{
-                        //    ITEM_ATT_SET_NAME = "";
-                        //}
-                        //else
-                        //{
-                        //    ITEM_ATT_SET_NAME = shopitems.Item[Rowscount].description.ToString();
-                        //}
                         // string updateQuery = "UPDATE INVENTORY SET LSITEM_ID = '" + LSITEM_ID + "', UPC = '" + upc + "', ALU = '" + shopitems.Item[Rowscount].customSku.ToString() + "' , BRAND = '" + shopitems.Item[Rowscount].manufacturerID.ToString() + "', MATRIX_ID = '" + MATRIX_ID + "', COST = '" + Cost + "', ITEM_NAME = '" + shopitems.Item[Rowscount].description + "', ITEM_ATT_SET_ID = '" + ITEM_ATT_SET_ID + "', ITEM_ATT_SET_NAME = '" + shopitems.Item[Rowscount].name + "', ITEM_ATT_1 = '" + shopitems.Item[Rowscount].attributeName1.ToString() + "', ITEM_ATT_2 = '" + (shopitems.Item[Rowscount].attributeName2).ToString() + "' WHERE ITEM_SID="+ Convert.ToInt64(shopitems.Item[Rowscount].manufacturerSku);
                         string updateQuery = "UPDATE INVENTORY SET CreatedDate= @CreatedDate, ITEM_SID=@manufacturerSKU , UPC =@upc, ALU = @ALU , BRAND = @Brand, MATRIX_ID = @MATRIX_ID , COST = @Cost , ITEM_NAME = @ITEM_NAME, ITEM_ATT_SET_ID = @ITEM_ATT_SET_ID , ITEM_ATT_SET_NAME = @ITEM_ATT_SET_NAME ,Price=@Price, ITEM_ATT_1 = @ITEM_ATT_1, ITEM_ATT_2 = @ITEM_ATT_2,MSRP=@MSRP, qoh=@qoh,shopID=@shopID, reorderPoint=@reorderPoint ,reorderLevel=@reorderLevel,BrandName=@BrandName,systemSku=@systemSku,attribute1=@attribute1,attribute2=@attribute2,shop_0_reorderLevel=@shop_0_reorderLevel ,shop_1_reorderLevel=@shop_1_reorderLevel,shop_2_reorderLevel=@shop_2_reorderLevel ,shop_3_reorderLevel=@shop_3_reorderLevel,shop_4_reorderLevel=@shop_4_reorderLevel,shop_5_reorderLevel=@shop_5_reorderLevel,shop_6_reorderLevel=@shop_6_reorderLevel,shop_7_reorderLevel=@shop_7_reorderLevel,shop_8_reorderLevel=@shop_8_reorderLevel,shop_9_reorderLevel=@shop_9_reorderLevel,shop_0_qoh=@shop_0_qoh,shop_1_qoh=@shop_1_qoh ,shop_2_qoh=@shop_2_qoh,shop_3_qoh=@shop_3_qoh,shop_4_qoh=@shop_4_qoh,shop_5_qoh=@shop_5_qoh,shop_6_qoh=@shop_6_qoh,shop_7_qoh=@shop_7_qoh,shop_8_qoh=@shop_8_qoh,shop_9_qoh=@shop_9_qoh,shop_0_reorderPoint=@shop_0_reorderPoint,shop_1_reorderPoint=@shop_1_reorderPoint,shop_2_reorderPoint=@shop_2_reorderPoint,shop_3_reorderPoint=@shop_3_reorderPoint,shop_4_reorderPoint=@shop_4_reorderPoint,shop_5_reorderPoint=@shop_5_reorderPoint,shop_6_reorderPoint=@shop_6_reorderPoint,shop_7_reorderPoint=@shop_7_reorderPoint,shop_8_reorderPoint=@shop_8_reorderPoint,shop_9_reorderPoint=@shop_9_reorderPoint  WHERE LSITEM_ID=" + LSITEM_ID;
                         cmd2.Parameters.AddWithValue("@manufacturerSKU", manufacturerSKU);
@@ -2951,21 +3032,26 @@ namespace LightSpeedAPI.Controllers
 
                         cmd2.CommandText = updateQuery;
                         cmd2.ExecuteNonQuery();
+                        Message = "sucessfully Update";
                     }
                     cnn.Close();
                 }
                 catch (Exception ex)
                 {
+                    Message = ex.Message;
                 }
             }
             else
             {
 
             }
+            return Message;
+
         }
 
-        private static void InsertInventoryItems(Iteminfo shopitems)
+        private static string InsertInventoryItems(Iteminfo shopitems)
         {
+            string Message = "";
 
             for (Int32 Rowscount = 0; Rowscount <= shopitems.Item.Count() - 1; Rowscount++)
             {
@@ -2991,7 +3077,7 @@ namespace LightSpeedAPI.Controllers
                         var ccoun = dsn.Tables[0].Rows.Count;
                         if (ccoun == 0)
                         {
-                            string query = "Insert into INVENTORY(CreatedDate,LSITEM_ID,Category,attribute1 ,attribute2,UPC,ALU,ITEM_SID,BRAND,MATRIX_ID,COST,ITEM_NAME,ITEM_ATT_SET_ID,ITEM_ATT_SET_NAME,ITEM_ATT_1,ITEM_ATT_2,Price,MSRP,systemSku,BrandName ,reorderLevel,reorderPoint,shopID,qoh,shop_0_qoh,shop_0_reorderLevel,shop_0_reorderPoint ,shop_1_qoh,shop_1_reorderLevel,shop_1_reorderPoint, shop_2_qoh,shop_2_reorderLevel,shop_2_reorderPoint,shop_3_qoh,shop_3_reorderLevel,shop_3_reorderPoint,shop_4_qoh,shop_4_reorderLevel,shop_4_reorderPoint,shop_5_qoh,shop_5_reorderLevel,shop_5_reorderPoint,shop_6_qoh,shop_6_reorderLevel,shop_6_reorderPoint,shop_7_qoh,shop_7_reorderLevel,shop_7_reorderPoint,shop_8_qoh,shop_8_reorderLevel,shop_8_reorderPoint,shop_9_qoh,shop_9_reorderLevel,shop_9_reorderPoint) Values (@CreatedDate,@LSITEM_ID,@Category,@attribute1,@attribute2,@UPC,@ALU,@ITEM_SID,@BRAND,@MATRIX_ID,@COST,@ITEM_NAME,@ITEM_ATT_SET_ID,@ITEM_ATT_SET_NAME,@ITEM_ATT_1,@ITEM_ATT_2,@Price,@MSRP,@systemSku,@BrandName,@reorderLevel,@reorderPoint,@shopID,@qoh,shop_0_qoh,shop_0_reorderLevel,shop_0_reorderPoint,@shop_1_qoh,@shop_1_reorderLevel,@shop_1_reorderPoint,@shop_2_qoh,@shop_2_reorderLevel,@shop_2_reorderPoint,@shop_3_qoh,@shop_3_reorderLevel,@shop_3_reorderPoint,@shop_4_qoh,@shop_4_reorderLevel,@shop_4_reorderPoint,@shop_5_qoh,@shop_5_reorderLevel,@shop_5_reorderPoint,@shop_6_qoh,@shop_6_reorderLevel,@shop_6_reorderPoint,@shop_7_qoh,@shop_7_reorderLevel,@shop_7_reorderPoint,@shop_8_qoh,@shop_8_reorderLevel,@shop_8_reorderPoint,@shop_9_qoh,@shop_9_reorderLevel,@shop_9_reorderPoint)";
+                            string query = "Insert into INVENTORY(CreatedDate,LSITEM_ID,Category,attribute1 ,attribute2,UPC,ALU,ITEM_SID,BRAND,MATRIX_ID,COST,ITEM_NAME,ITEM_ATT_SET_ID,ITEM_ATT_SET_NAME,ITEM_ATT_1,ITEM_ATT_2,Price,MSRP,systemSku,BrandName ,reorderLevel,reorderPoint,shopID,qoh,shop_0_qoh,shop_0_reorderLevel,shop_0_reorderPoint ,shop_1_qoh,shop_1_reorderLevel,shop_1_reorderPoint, shop_2_qoh,shop_2_reorderLevel,shop_2_reorderPoint,shop_3_qoh,shop_3_reorderLevel,shop_3_reorderPoint,shop_4_qoh,shop_4_reorderLevel,shop_4_reorderPoint,shop_5_qoh,shop_5_reorderLevel,shop_5_reorderPoint,shop_6_qoh,shop_6_reorderLevel,shop_6_reorderPoint,shop_7_qoh,shop_7_reorderLevel,shop_7_reorderPoint,shop_8_qoh,shop_8_reorderLevel,shop_8_reorderPoint,shop_9_qoh,shop_9_reorderLevel,shop_9_reorderPoint) Values (@CreatedDate,@LSITEM_ID,@Category,@attribute1,@attribute2,@UPC,@ALU,@ITEM_SID,@BRAND,@MATRIX_ID,@COST,@ITEM_NAME,@ITEM_ATT_SET_ID,@ITEM_ATT_SET_NAME,@ITEM_ATT_1,@ITEM_ATT_2,@Price,@MSRP,@systemSku,@BrandName,@reorderLevel,@reorderPoint,@shopID,@qoh,@shop_0_qoh,@shop_0_reorderLevel,@shop_0_reorderPoint,@shop_1_qoh,@shop_1_reorderLevel,@shop_1_reorderPoint,@shop_2_qoh,@shop_2_reorderLevel,@shop_2_reorderPoint,@shop_3_qoh,@shop_3_reorderLevel,@shop_3_reorderPoint,@shop_4_qoh,@shop_4_reorderLevel,@shop_4_reorderPoint,@shop_5_qoh,@shop_5_reorderLevel,@shop_5_reorderPoint,@shop_6_qoh,@shop_6_reorderLevel,@shop_6_reorderPoint,@shop_7_qoh,@shop_7_reorderLevel,@shop_7_reorderPoint,@shop_8_qoh,@shop_8_reorderLevel,@shop_8_reorderPoint,@shop_9_qoh,@shop_9_reorderLevel,@shop_9_reorderPoint)";
                             // string query = "Insert into INVENTORY(CreatedDate,LSITEM_ID,CATEGORY,UPC,ALU,ITEM_SID,BRAND,MATRIX_ID,COST,ITEM_NAME,ITEM_ATT_SET_ID,ITEM_ATT_SET_NAME,ITEM_ATT_1,ITEM_ATT_2,Price,MSRP,MATRIX_ID) Values (@CreatedDate,@LSITEM_ID,@CATEGORY,@UPC,@ALU,@ITEM_SID,@BRAND,@MATRIX_ID,@COST,@ITEM_NAME,@ITEM_ATT_SET_ID,@ITEM_ATT_SET_NAME,@ITEM_ATT_1,@ITEM_ATT_2,@Price,@MSRP,@MATRIX_ID)";
                             MySqlCommand cmd = new MySqlCommand();
                             cmd.CommandText = query;
@@ -3337,6 +3423,7 @@ namespace LightSpeedAPI.Controllers
 
                             cmd.Connection = cnn;
                             cmd.ExecuteNonQuery();
+                            Message = "sucssfully Inserted";
                         }
 
                         else
@@ -3948,18 +4035,20 @@ namespace LightSpeedAPI.Controllers
 
                             cmd2.CommandText = updateQuery;
                             cmd2.ExecuteNonQuery();
+                            Message = "sucssfully Updated";
                         }
                         cnn.Close();
                     }
                     catch (Exception ex)
                     {
+                        Message = ex.Message;
                     }
                 }
-
                 else
                 {
                 }
             }
+            return Message;
         }
 
         void checkForTime_Elapsed(object sender, ElapsedEventArgs e)
